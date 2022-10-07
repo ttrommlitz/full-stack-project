@@ -54,7 +54,7 @@
         this.toDoList[index].checked = !this.toDoList[index].checked
         const currentDate = new Date();
         const currentDayOfMonth = currentDate.getDate();
-        const currentMonth = currentDate.getMonth(); // Be careful! January is 0, not 1
+        const currentMonth = currentDate.getMonth(); 
         const currentYear = currentDate.getFullYear();
         this.toDoList[index].time = (currentMonth + 1) + "-" + currentDayOfMonth + "-" + currentYear;
 
