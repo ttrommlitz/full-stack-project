@@ -131,5 +131,11 @@
 input[type=checkbox] {
  accent-color: rebeccapurple;
 }
+
+@media only screen and (max-width: 800px) {
+  li {
+    width: 400px;
+  }
+}
   </style>
   

@@ -3,7 +3,10 @@
   <form @submit.prevent="$emit('newItem',title,description)">
       <input type="text" id="title" v-model="title" placeholder="Type Title Here" class="title" required="required">
       <input type="textarea" id="description" v-model="description" placeholder="Type Description Here" rows="4" cols="50" wrap="soft" required="required" class="description">
-      <button class="submit">Submit</button>
+      <div class="button">
+        <button class="submit">Submit</button>
+      </div>
+      
     </form>
 </template>
 
@@ -35,7 +38,12 @@ export default {
   }
 
   .submit {
-    width: 10%;
-    margin: 15px auto;
+    width: 100px;
+    margin: 15px;
+  }
+
+  .button {
+    display: flex;
+    justify-content: center;
   }
 </style>
