@@ -134,7 +134,7 @@ input[type=checkbox] {
 
 @media only screen and (max-width: 800px) {
   li {
-    width: 400px;
+    width: 300px;
   }
 }
   </style>
