@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors')
 const mongoose = require('mongoose')
-const toDoRoutes = require('./routes/toDoRoutes')
+const toDoRoutes = require('./back-end/routes/toDoRoutes')
 
 const app = express();
 
@@ -28,6 +28,11 @@ app.use(cors({
     origin: '*',
     methods: ['GET','POST','DELETE','PUT',]
 }))
+
+app.use(express.static(path.join(__dirname, "./dist")))
+app.get('/*', (req, res) => {
+    res.sendFile(path.join(__dirname, './dist', 'index.html'))
+})
 
 //Mongo connection and setup
 const url = 'mongodb+srv://ttrommlitz:Soccer03%21@todo-storage.c4i7nan.mongodb.net/test'
