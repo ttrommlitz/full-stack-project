@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors')
 const mongoose = require('mongoose')
-const toDoRoutes = require('./back-end/routes/toDoRoutes')
+const toDoRoutes = require('./routes/toDoRoutes')
 
 const app = express();
 
@@ -41,4 +41,4 @@ mongoose.connect(url, {useUnifiedTopology: true, useNewUrlParser: true})
 //CRUD endpoints
 app.use('/api/todo', toDoRoutes)
 
-app.listen(3000, () => console.log('Server listening on port 3000!'));
+app.listen(process.env.PORT || 3000, () => console.log('Server listening on port 3000!'));
