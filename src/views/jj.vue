@@ -2,21 +2,33 @@
     <div>
       <h1>{{ msg }}</h1>
       <div class="buttons">
-        <button @click="$emit('newItem','Title', 'Description')">Add Dummy Data</button>
+        <button class="theButton" @click="$emit('newItem','Title', 'Description')">Add Dummy Data</button>
       </div>
       <div>
-        <ul>
-          <transition-group name="list-complete" tag="ul">
-            <li v-for="(item,index) in toDoList" :key="item">
-              <div class="checkbox">
-                <input type="checkbox" id="theCheckbox" class="icon" @click="$emit('checked', index)" :checked="item.checked">
+        <ul class="theul">
+          <transition-group name="list" tag="ul">
+            <li v-for="(item,index) in toDoList" :key="item._id">
+              <div class="theli">
+                <div class="checkbox">
+                  <input type="checkbox" id="theCheckbox" class="icon" @click="$emit('checked', index)" :checked="item.checked">
+                </div>
+                <div>
+                  <h3>{{ item.title }}</h3>
+                  <p>{{ item.description }}</p>
+                </div>
+                <div class="editAndTrash">
+                  <img @click="$emit('deleteItem', index)"  class="icon" src="../assets/trash.png" alt="trashCan">
+                  <img @click="$emit('changeEditable', index)"  class="icon" src="../assets/edit.png" alt="editButton">
+                </div>
               </div>
               <div>
-                <h3>{{ item.title }}</h3>
-                <p>{{ item.description }}</p>
-              </div>
-              <div class="editAndTrash">
-                <img @click="$emit('deleteItem', index)"  class="icon" src="../assets/trash.png" alt="trashCan">
+                <form v-show="item.editable" @submit.prevent="$emit('edit',index, item.title, item.description)">
+                  <div class="conditionalForm">
+                    <input type="text" v-model="item.title" class="titleInput">
+                    <textarea rows="2" cols="70" v-model="item.description"></textarea>
+                  </div>
+                  <button class="theButton" style="font-size: 1.1em; margin: 20px;">Submit</button>
+                </form>
               </div>
             </li>
           </transition-group>
@@ -41,9 +53,14 @@
 
   ul {
     list-style-type: none;
-    padding: 0;
+    padding-inline-start: 0px;
+    position: relative;
   }
+
   li {
+    list-style-type: none;
+  }
+  .theli {
     display: flex;
     justify-content: space-between;
     width: 700px;
@@ -54,9 +71,14 @@
     border: solid;
     border-color: red;
     border-width: 1px;
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
   }
 
-  button {
+  .theButton {
     margin: 10px;
     padding: 10px;
     text-align: center;
@@ -65,8 +87,6 @@
     border-radius: 5px;
     background: white;
     cursor: pointer;
-    
-
   }
 
   .buttons {
@@ -99,6 +119,8 @@
   p {
     font-size: 1.1em;
     margin: 0px;
+    max-width: 540px;
+    word-wrap: break-word;
   }
 
   input {
@@ -118,22 +140,43 @@
     align-items: center;
   }
 
-  .list-complete-item, .list-complete-move {
-  transition: all 1s;
+  .conditionalForm {
+    display: column;
+    flex-direction: row;
+    width: 600px;
+    margin: 0px auto;
   }
-.list-complete-enter, .list-complete-leave-to {
+
+  form {
+    display: flex;
+    width: 700px;
+    margin: 0px auto;
+  }
+
+  textarea, .titleInput {
+    border: 1.5px solid black;
+    border-radius: 7px;
+    font-family: Avenir, Arial, Helvetica, sans-serif;
+    resize: none
+  }
+
+  .list-move,
+  .list-enter-active,
+  .list-leave-active {
+    transition: all 0.5s ease
+  }
+
+  .list-enter-from,
+  .list-leave-to {
   opacity: 0;
-}
-.list-complete-leave-active {
-  position: absolute;
-}
+  }
 
 input[type=checkbox] {
  accent-color: rebeccapurple;
 }
 
 @media only screen and (max-width: 800px) {
-  li {
+  .theli {
     width: 300px;
   }
 }

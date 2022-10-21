@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import jj from '../views/jj.vue'
 import create from '../views/create-item.vue'
 import completed from '../views/completed-list.vue'
+import about from '../views/about-me.vue'
 
 const routes = [
   {
@@ -20,6 +21,12 @@ const routes = [
     path: '/completed',
     name: 'completed',
     component: completed,
+    props: true
+  },
+  {
+    path: '/about',
+    name: 'about',
+    component: about,
     props: true
   }
 ]

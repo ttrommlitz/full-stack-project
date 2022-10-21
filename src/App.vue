@@ -4,52 +4,50 @@
     <router-link to="/create">Create</router-link> |
     <router-link to="/completed">Completed</router-link>
   </nav>
-  <router-view v-bind:msg="msg" v-bind:toDoList="toDoList" v-bind:completedItems="completedItems" @newItem="newItem" @deleteItem ="deleteItem" @checked="checked"/>
+  <router-view v-bind:msg="msg" v-bind:toDoList="toDoList" v-bind:completedItems="completedItems" 
+  @newItem="newItem" @deleteItem ="deleteItem" @checked="checked" @edit="edit" @changeEditable="changeEditable"/>
 </template>
 
 <script>
+  import axios from 'axios'
   export default {
     data () {
       return {
         msg: 'To Do List',
-        toDoList: [
-          {title: 'Eat', description: 'Time to Eat!', time: "", checked: false},
-          {title: 'Work', description: 'Make sure to be there on time!', time: "", checked: false},
-          {title: 'Sleep', description: 'Make sure to get at least 7 hours of sleep!', time: "", checked: false},
-          {title: 'repeat', description: 'Do it all over again!', time: "", checked: false},
-        ], 
-        time: "",
+        toDoList: []
       }
     },
-    created () {
-      if (window.localStorage.getItem('thetoDoList') === undefined) {
-        localStorage.setItem('thetoDoList',JSON.stringify(this.toDoList))
-      } 
-      else if (JSON.parse(window.localStorage.getItem('thetoDoList')).length === 0) {
-        window.localStorage.setItem('thetoDoList', JSON.stringify(this.toDoList))
-      }
-      else {
-        this.toDoList = JSON.parse(window.localStorage.getItem('thetoDoList'))
-      }
-      console.log('in created')
-    },
-    updated () {
-      window.localStorage.setItem('thetoDoList', JSON.stringify(this.toDoList))
+    async created () {
+      await this.fetchList()
       
     },
+    async updated () {
+      window.localStorage.setItem('thetoDoList', JSON.stringify(this.toDoList))
+    },
     methods: {
-      newItem (theTitle, theDescription) {
+      async newItem (theTitle, theDescription) {
         if (theTitle !== undefined || theDescription !== undefined) {
-          this.toDoList.push({title: theTitle, description: theDescription, time: "", checked: false})
+          
+          try {
+            await axios.post('/api/todo', {title: theTitle, description: theDescription})
+            await this.fetchList()
+          } catch (error) {
+            console.log(error)
+          }
         } else {
           console.log('Empty arguments!')
         }
         this.$router.push("/")
       },
-      deleteItem (index) {
-        this.toDoList.splice(index, 1)
+      async deleteItem (index) {
+        try {
+          await axios.delete('/api/todo/' + this.toDoList[index]._id)
+          await this.fetchList()
+        } catch (error) {
+          console.log(error)
+        }
       },
-      checked (index) {
+      async checked (index) {
         console.log('checked')
         this.toDoList[index].checked = !this.toDoList[index].checked
         const currentDate = new Date();
@@ -57,14 +55,42 @@
         const currentMonth = currentDate.getMonth(); 
         const currentYear = currentDate.getFullYear();
         this.toDoList[index].time = (currentMonth + 1) + "-" + currentDayOfMonth + "-" + currentYear;
-
+        try {
+          await axios.put('/api/todo/' + this.toDoList[index]._id, this.toDoList[index])
+          await this.fetchList()
+        } catch (error) {
+          console.log(error)
+        }
+      },
+      async edit (index) {
+        this.changeEditable(index)
+        console.log(this.toDoList[index])
+        try {
+          await axios.put('/api/todo/' + this.toDoList[index]._id, this.toDoList[index])
+        } catch (error) {
+          console.log(error)
+        }
+      },
+      changeEditable (index) {
+        this.toDoList[index].editable = !this.toDoList[index].editable
+      },
+      async fetchList () {
+        console.log('fetching')
+        try {
+          const result = await axios.get('/api/todo')
+          console.log(result.data)
+          this.toDoList = result.data
+          return result.data
+        } catch (error) {
+          console.log(error)
+        }
       }
     },
     computed: {
       completedItems () {
         console.log('comp')
-        let arr = this.toDoList.filter(item => item.checked === true)
-        return arr
+          let arr = this.toDoList.filter(item => item.checked === true)
+          return arr
       }
     }
   }

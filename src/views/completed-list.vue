@@ -1,7 +1,7 @@
 <template>
   <h1>Completed Items</h1>
-  <ul>
-    <li v-for="item in this.completedItems" :key="item" class="theItem">
+  <ul class="theul">
+    <li v-for="item in this.completedItems" :key="item" class="theItem theli">
         <div>
             <h3>{{ item.title }}</h3>
             <p>Day Completed: {{ item.time }}</p>

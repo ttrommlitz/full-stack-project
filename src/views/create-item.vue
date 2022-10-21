@@ -2,9 +2,9 @@
   <h1>Create Item</h1>
   <form @submit.prevent="$emit('newItem',title,description)">
       <input type="text" id="title" v-model="title" placeholder="Type Title Here" class="title" required="required">
-      <input type="textarea" id="description" v-model="description" placeholder="Type Description Here" rows="4" cols="50" wrap="soft" required="required" class="description">
+      <textarea id="description" v-model="description" placeholder="Type Description Here" rows="4" cols="50" wrap="soft" required="required" class="description"></textarea>
       <div class="button">
-        <button class="submit">Submit</button>
+        <button class="submit theButton">Submit</button>
       </div>
       
     </form>
@@ -30,11 +30,10 @@ export default {
   }
 
   .description {
-    display: flex;
-    flex-wrap: wrap;
     height: 200px;
     margin: 15px 10px;
     border-radius: 17px;
+    border: 2px solid black;
   }
 
   .submit {
