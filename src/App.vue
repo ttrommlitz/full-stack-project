@@ -90,8 +90,8 @@
       completedItems () {
         console.log('comp')
         console.log(this.toDoList)
-          let arr = this.toDoList.filter(item => item.checked === true)
-          return arr
+          // let arr = this.toDoList.filter(item => item.checked === true)
+          // return arr
       }
     }
   }
