@@ -89,7 +89,7 @@
     computed: {
       completedItems () {
         console.log('comp')
-          console.log(arr)
+        console.log(this.toDoList)
           let arr = this.toDoList.filter(item => item.checked === true)
           return arr
       }
