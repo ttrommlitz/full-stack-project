@@ -29,10 +29,10 @@ app.use(cors({
     methods: ['GET','POST','DELETE','PUT',]
 }))
 
-app.use(express.static(__dirname + '/dist'))
-app.get('/*', (req, res) => {
-    res.sendFile(__dirname + '/dist/index.html')
-})
+// app.use(express.static(__dirname + '/dist'))
+// app.get('/*', (req, res) => {
+//     res.sendFile(__dirname + '/dist/index.html')
+// })
 
 //Mongo connection and setup
 const url = 'mongodb+srv://ttrommlitz:Soccer03%21@todo-storage.c4i7nan.mongodb.net/test'
