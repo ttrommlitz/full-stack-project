@@ -36,7 +36,7 @@ app.get('/*', (req, res) => {
 
 //Mongo connection and setup
 const url = 'mongodb+srv://ttrommlitz:Soccer03%21@todo-storage.c4i7nan.mongodb.net/test'
-mongoose.connect(url, {useUnifiedTopology: true, useNewUrlParser: true})
+mongoose.connect(url, { useUnifiedTopology: true, useNewUrlParser: true })
 
 //CRUD endpoints
 app.use('/api/todo', toDoRoutes)
