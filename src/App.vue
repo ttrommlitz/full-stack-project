@@ -29,7 +29,7 @@
         if (theTitle !== undefined || theDescription !== undefined) {
           
           try {
-            await axios.post('todo', {title: theTitle, description: theDescription})
+            await axios.post('http://localhost:8000/api/create', {title: theTitle, description: theDescription})
             await this.fetchList()
           } catch (error) {
             console.log(error)
@@ -41,7 +41,7 @@
       },
       async deleteItem (index) {
         try {
-          await axios.delete('todo/' + this.toDoList[index]._id)
+          await axios.delete('http://localhost:8000/api/delete/' + this.toDoList[index]._id)
           await this.fetchList()
         } catch (error) {
           console.log(error)
@@ -56,7 +56,7 @@
         const currentYear = currentDate.getFullYear();
         this.toDoList[index].time = (currentMonth + 1) + "-" + currentDayOfMonth + "-" + currentYear;
         try {
-          await axios.put('todo/' + this.toDoList[index]._id, this.toDoList[index])
+          await axios.put('http://localhost:8000/api/update/' + this.toDoList[index]._id, this.toDoList[index])
           await this.fetchList()
         } catch (error) {
           console.log(error)
@@ -66,7 +66,7 @@
         this.changeEditable(index)
         console.log(this.toDoList[index])
         try {
-          await axios.put('todo/' + this.toDoList[index]._id, this.toDoList[index])
+          await axios.put('http://localhost:8000/api/update/' + this.toDoList[index]._id, this.toDoList[index])
         } catch (error) {
           console.log(error)
         }
@@ -77,7 +77,7 @@
       async fetchList () {
         console.log('fetching')
         try {
-          const result = await axios.get('todo/')
+          const result = await axios.get('http://localhost:8000/api')
           console.log(result.data)
           this.toDoList = result.data
           return result.data
