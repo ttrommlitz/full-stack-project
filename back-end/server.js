@@ -1,9 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors')
-const toDoRoutes = require('./routes/toDoRoutes')
+const middleware = require('./routes')
 
-const app = express();
+const app = express()
+
+// This will fire our mongoose.connect statement to initialize our database connection
+require('./config/mongoose.config')
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({
@@ -29,6 +32,8 @@ app.use(cors({
 }))
 
 //CRUD endpoints
-app.use('/api/todo', toDoRoutes)
+app.use('/api', middleware)
 
-app.listen(process.env.PORT || 3000, () => console.log('Server listening on port 3000!'));
+app.listen(8000, () => console.log('Server listening on port 8000!'))
+
+module.exports = app
