@@ -33,9 +33,11 @@
             </li>
           </transition-group>
         </ul>
-        <p v-if="toDoList.length === 0">
+        <div class="noItemsP">
+          <p v-if="toDoList.length === 0">
           Nothing to do yet. Add some items!
         </p>
+        </div>
       </div>
     </div>
   </template>
@@ -121,6 +123,11 @@
     margin: 0px;
     max-width: 540px;
     word-wrap: break-word;
+  }
+
+  .noItemsP {
+    display: flex;
+    justify-content: center;
   }
 
   input {

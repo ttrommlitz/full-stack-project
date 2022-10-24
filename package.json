@@ -2,6 +2,7 @@
   "name": "full-stack-project",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://lit-caverns-06053.herokuapp.com",
   "description": "## Project setup ``` npm install ```",
   "author": "",
   "scripts": {
@@ -23,6 +24,9 @@
     "morgan": "^1.10.0",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3"
+  },
+  "engines": {
+    "node": "v16.17.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
