@@ -2,9 +2,9 @@ const express = require('express')
 const toDoController = require('../controllers/toDoController')
 const router = express.Router()
 
-router.post('/create', toDoController.blog_create)
-router.get('/', toDoController.blog_read)
-router.put('/update/:id', toDoController.blog_update)
-router.delete('/delete/:id', toDoController.blog_delete)
+router.post('/create', toDoController.blogCreate)
+router.get('/', toDoController.blogRead)
+router.put('/update/:id', toDoController.blogUpdate)
+router.delete('/delete/:id', toDoController.blogDelete)
 
 module.exports = router

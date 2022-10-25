@@ -1,6 +1,6 @@
 const toDoItem = require('../models/toDo')
 
-const blog_create = async (req, res) => {
+const blogCreate = async (req, res) => {
   const toDoitem = new toDoItem({
     title: req.body.title,
     description: req.body.description,
@@ -17,7 +17,7 @@ const blog_create = async (req, res) => {
   res.sendStatus(200)
 }
 
-const blog_read = async (req, res) => {
+const blogRead = async (req, res) => {
   console.log('pulled from mongo!')
   try {
     const theItems = await toDoItem.find()
@@ -27,7 +27,7 @@ const blog_read = async (req, res) => {
   }
 }
 
-const blog_update = async (req, res) => {
+const blogUpdate = async (req, res) => {
   try {
     await toDoItem.updateOne({ _id: req.params.id }, req.body)
   } catch (error) {
@@ -37,7 +37,7 @@ const blog_update = async (req, res) => {
   res.sendStatus(200)
 }
 
-const blog_delete = async (req, res) => {
+const blogDelete = async (req, res) => {
   try {
     await toDoItem.deleteOne({
       _id: req.params.id
@@ -51,8 +51,8 @@ const blog_delete = async (req, res) => {
 }
 
 module.exports = {
-  blog_create,
-  blog_read,
-  blog_update,
-  blog_delete
+  blogCreate,
+  blogRead,
+  blogUpdate,
+  blogDelete
 }
