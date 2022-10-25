@@ -1,9 +1,9 @@
-version: '1.0'
+version: '1'
 
 services:
   server:
     build:
-      context: ./back-end
+      context: ./server
       dockerfile: Dockerfile
     image: todo-server
     container_name: todo-node-server
@@ -12,12 +12,12 @@ services:
       - ./server/:/usr/src/app
       - /usr/src/app/node_modules
     ports:
-      - "8000:8000"
+      - "3001:3001"
     depends_on:
       - mongo
-    env_file: ./server/.env
     environment:
-      - NODE_ENV=development
+      - PORT=3001
+      - URI=mongodb://full-stack-project-mongo-1
     networks:
       - app-network
   mongo:
@@ -34,14 +34,14 @@ services:
       dockerfile: Dockerfile
     image: todo-client
     container_name: todo-vue-client
-    command: npm start
+    command: npm run serve
     volumes:
       - ./client/:/usr/app
       - /usr/app/node_modules
     depends_on:
       - server
     ports:
-      - "3000:3000"
+      - "8080:8080"
     networks:
       - app-network
 

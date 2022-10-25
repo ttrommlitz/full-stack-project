@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors')
 const middleware = require('./routes')
-
+const port = process.env.PORT || 3001
 const app = express()
 
 // This will fire our mongoose.connect statement to initialize our database connection
@@ -34,6 +34,6 @@ app.use(cors({
 //CRUD endpoints
 app.use('/api', middleware)
 
-app.listen(8000, () => console.log('Server listening on port 8000!'))
+app.listen(port, () => console.log(`Server listening on port ${port}!`))
 
 module.exports = app

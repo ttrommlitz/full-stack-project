@@ -1,8 +1,10 @@
 const mongoose = require('mongoose')
+const {URI} = process.env
+const url = URI || "mongodb://localhost/"
 
-mongoose.connect("mongodb://localhost/todo", {
+mongoose.connect(url, {
   useNewUrlParser: true,
   useUnifiedTopology:true
 })
-  .then(() => console.log("Established a connection to the database"))
-  .catch(err => console.log("Something went wrong when connecting to the database", err))
+  .then(() => console.info(`Established a connection to the database: ${url}`))
+  .catch(err => console.info(`Something went wrong when connecting to the database: ${url}`, err))

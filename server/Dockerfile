@@ -1,6 +1,6 @@
 #  Dockerfile for Node Express Backend
 
-FROM node:latest as build-stage
+FROM node:latest
 
 # Create App Directory
 RUN mkdir -p /usr/src/app
@@ -15,6 +15,6 @@ RUN npm install --silent
 COPY . .
 
 # Exports
-EXPOSE 8000
+EXPOSE 3001
 
 CMD ["npm","start"]
