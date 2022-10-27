@@ -10,6 +10,7 @@
 
 <script>
   import axios from 'axios'
+  import { baseUrl } from './settings'
   export default {
     data () {
       return {
@@ -29,7 +30,7 @@
         if (theTitle !== undefined || theDescription !== undefined) {
           
           try {
-            await axios.post('https://lit-caverns-06053.herokuapp.com/api/todo', {title: theTitle, description: theDescription})
+            await axios.post(`${baseUrl}/api/create`, {title: theTitle, description: theDescription})
             await this.fetchList()
           } catch (error) {
             console.log(error)
@@ -41,7 +42,7 @@
       },
       async deleteItem (index) {
         try {
-          await axios.delete('https://lit-caverns-06053.herokuapp.com/api/todo/' + this.toDoList[index]._id)
+          await axios.delete(`${baseUrl}/api/delete/` + this.toDoList[index]._id)
           await this.fetchList()
         } catch (error) {
           console.log(error)
@@ -56,7 +57,7 @@
         const currentYear = currentDate.getFullYear();
         this.toDoList[index].time = (currentMonth + 1) + "-" + currentDayOfMonth + "-" + currentYear;
         try {
-          await axios.put('https://lit-caverns-06053.herokuapp.com/api/todo/' + this.toDoList[index]._id, this.toDoList[index])
+          await axios.put(`${baseUrl}/api/update/` + this.toDoList[index]._id, this.toDoList[index])
           await this.fetchList()
         } catch (error) {
           console.log(error)
@@ -66,7 +67,7 @@
         this.changeEditable(index)
         console.log(this.toDoList[index])
         try {
-          await axios.put('https://lit-caverns-06053.herokuapp.com/api/todo/' + this.toDoList[index]._id, this.toDoList[index])
+          await axios.put(`${baseUrl}/api/update/`, + this.toDoList[index]._id, this.toDoList[index])
         } catch (error) {
           console.log(error)
         }
@@ -77,7 +78,7 @@
       async fetchList () {
         console.log('fetching')
         try {
-          const result = await axios.get('https://lit-caverns-06053.herokuapp.com/api/todo')
+          const result = await axios.get(`${baseUrl}/api`,)
           console.log(result.data)
           this.toDoList = result.data
           return result.data
