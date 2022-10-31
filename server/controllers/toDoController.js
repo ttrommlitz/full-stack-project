@@ -10,20 +10,20 @@ const blogCreate = async (req, res) => {
   })
   try {
     await toDoitem.save()
-    console.log('posted to mongo!')
+    console.info('posted to mongo!')
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
   res.sendStatus(200)
 }
 
 const blogRead = async (req, res) => {
-  console.log('pulled from mongo!')
+  console.info('pulled from mongo!')
   try {
     const theItems = await toDoItem.find()
     res.send(theItems)
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
@@ -31,9 +31,9 @@ const blogUpdate = async (req, res) => {
   try {
     await toDoItem.updateOne({ _id: req.params.id }, req.body)
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
-  console.log('update mongo!')
+  console.info('update mongo!')
   res.sendStatus(200)
 }
 
@@ -42,10 +42,10 @@ const blogDelete = async (req, res) => {
     await toDoItem.deleteOne({
       _id: req.params.id
     })
-    console.log('deleted from mongo!')
+    console.info('deleted from mongo!')
     res.sendStatus(200)
   } catch (error) {
-    console.log(error)
+    console.error(error)
     res.sendStatus(500)
   }
 }

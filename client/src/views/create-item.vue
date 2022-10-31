@@ -1,20 +1,24 @@
+<!-- Optional component to display a create item page -->
+
 <template>
-  <h1>Create Item</h1>
-  <form @submit.prevent="$emit('newItem',title,description)">
+  <div>
+    <h1>Create Item</h1>
+    <form @submit.prevent="$emit('newItem',title,description)">
       <input type="text" id="title" v-model="title" placeholder="Type Title Here" class="title" required="required">
       <textarea id="description" v-model="description" placeholder="Type Description Here" rows="4" cols="50" wrap="soft" required="required" class="description"></textarea>
       <div class="button">
         <button class="submit theButton">Submit</button>
       </div>
-      
     </form>
+  </div>
+  
 </template>
 
 <script>
 export default {
 
 }
-</script>
+</script> 
 
 <style scoped>
   form {

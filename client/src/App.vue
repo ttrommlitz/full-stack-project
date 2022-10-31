@@ -1,11 +1,12 @@
 <template>
+  <div>
   <nav>
     <router-link to="/">List</router-link> |
-    <router-link to="/create">Create</router-link> |
     <router-link to="/completed">Completed</router-link>
   </nav>
   <router-view v-bind:msg="msg" v-bind:toDoList="toDoList" v-bind:completedItems="completedItems" 
   @newItem="newItem" @deleteItem ="deleteItem" @checked="checked" @edit="edit" @changeEditable="changeEditable"/>
+  </div>
 </template>
 
 <script>
@@ -28,15 +29,14 @@
     methods: {
       async newItem (theTitle, theDescription) {
         if (theTitle !== undefined || theDescription !== undefined) {
-          
           try {
             await axios.post(`${baseUrl}/api/create`, {title: theTitle, description: theDescription})
             await this.fetchList()
           } catch (error) {
-            console.log(error)
+            console.error(error)
           }
         } else {
-          console.log('Empty arguments!')
+          console.info('Empty arguments!')
         }
         this.$router.push("/")
       },
@@ -45,11 +45,10 @@
           await axios.delete(`${baseUrl}/api/delete/` + this.toDoList[index]._id)
           await this.fetchList()
         } catch (error) {
-          console.log(error)
+          console.error(error)
         }
       },
       async checked (index) {
-        console.log('checked')
         this.toDoList[index].checked = !this.toDoList[index].checked
         const currentDate = new Date();
         const currentDayOfMonth = currentDate.getDate();
@@ -60,37 +59,32 @@
           await axios.put(`${baseUrl}/api/update/` + this.toDoList[index]._id, this.toDoList[index])
           await this.fetchList()
         } catch (error) {
-          console.log(error)
+          console.error(error)
         }
       },
       async edit (index) {
         this.changeEditable(index)
-        console.log(this.toDoList[index])
         try {
-          await axios.put(`${baseUrl}/api/update/`, + this.toDoList[index]._id, this.toDoList[index])
+          await axios.put(`${baseUrl}/api/update/` + this.toDoList[index]._id, this.toDoList[index])
         } catch (error) {
-          console.log(error)
+          console.error(error)
         }
       },
       changeEditable (index) {
         this.toDoList[index].editable = !this.toDoList[index].editable
       },
       async fetchList () {
-        console.log('fetching')
         try {
           const result = await axios.get(`${baseUrl}/api`,)
-          console.log(result.data)
           this.toDoList = result.data
           return result.data
         } catch (error) {
-          console.log(error)
+          console.error(error)
         }
       }
     },
     computed: {
       completedItems () {
-        console.log('comp')
-        console.log(this.toDoList)
           let arr = this.toDoList.filter(item => item.checked === true)
           return arr
       }

@@ -1,13 +1,16 @@
 <template>
-  <h1>Completed Items</h1>
-  <ul class="theul">
-    <li v-for="item in this.completedItems" :key="item" class="theItem theli">
-        <div>
-            <h3>{{ item.title }}</h3>
-            <p>Day Completed: {{ item.time }}</p>
-        </div>
-    </li>
-  </ul>
+  <div>
+    <h1>Completed Items</h1>
+    <ul class="theul">
+        <li v-for="item in this.completedItems" :key="item" class="theItem theli">
+            <div>
+                <h3>{{ item.title }}</h3>
+                <p>{{ item.description }}</p>
+                <p>Day Completed: {{ item.time }}</p>
+            </div>
+        </li>
+    </ul>
+  </div>
 </template>
 
 <script>
