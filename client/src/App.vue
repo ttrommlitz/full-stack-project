@@ -2,6 +2,7 @@
   <div>
   <nav>
     <router-link to="/">List</router-link> |
+    <!-- <router-link to="/create">Completed</router-link> |  -->
     <router-link to="/completed">Completed</router-link>
   </nav>
   <router-view v-bind:msg="msg" v-bind:toDoList="toDoList" v-bind:completedItems="completedItems" 
@@ -20,8 +21,7 @@
       }
     },
     async created () {
-      await this.fetchList()
-      
+      await this.fetchList() 
     },
     async updated () {
       window.localStorage.setItem('thetoDoList', JSON.stringify(this.toDoList))

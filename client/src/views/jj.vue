@@ -2,7 +2,7 @@
     <div>
       <h1>{{ msg }}</h1>
       <div class="buttons">
-        <button class="theButton" @click="$emit('newItem','Title', 'Description')">Add Dummy Data</button>
+        <button class="theButton" @click="$emit('newItem','Title', 'Description')">Add Item</button>
       </div>
       <div>
         <ul class="theul">
@@ -23,11 +23,20 @@
               </div>
               <div>
                 <form v-show="item.editable" @submit.prevent="$emit('edit',index, item.title, item.description)">
-                  <div class="conditionalForm">
-                    <input type="text" v-model="item.title" class="titleInput">
-                    <textarea rows="2" cols="70" v-model="item.description"></textarea>
+                  <div v-if="item.title === 'Title' && item.description === 'Description'" class="theForm">
+                    <div class="conditionalForm">
+                      <input type="text" class="titleInput"  placeholder="add title here">
+                      <textarea rows="2" cols="70" placeholder="add description here"></textarea>
+                    </div>
+                    <button class="theButton" style="font-size: 1.1em; margin: 20px;">Submit</button>
                   </div>
-                  <button class="theButton" style="font-size: 1.1em; margin: 20px;">Submit</button>
+                  <div v-else class="theForm">
+                    <div class="conditionalForm">
+                      <input type="text" v-model="item.title" class="titleInput"  placeholder="add title here">
+                      <textarea rows="2" cols="70" v-model="item.description" placeholder="add description here"></textarea>
+                    </div>
+                    <button class="theButton" style="font-size: 1.1em; margin: 20px;">Submit</button>
+                  </div>
                 </form>
               </div>
             </li>
@@ -154,7 +163,7 @@
     margin: 0px auto;
   }
 
-  form {
+  .theForm {
     display: flex;
     width: 700px;
     margin: 0px auto;
