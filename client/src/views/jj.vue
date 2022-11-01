@@ -22,21 +22,19 @@
                 </div>
               </div>
               <div>
-                <form v-show="item.editable" @submit.prevent="$emit('edit',index, item.title, item.description)">
-                  <div v-if="item.title === 'Title' && item.description === 'Description'" class="theForm">
-                    <div class="conditionalForm">
-                      <input type="text" class="titleInput"  placeholder="add title here">
-                      <textarea rows="2" cols="70" placeholder="add description here"></textarea>
-                    </div>
-                    <button class="theButton" style="font-size: 1.1em; margin: 20px;">Submit</button>
+                <form v-show="item.editable" @submit.prevent="$emit('edit1',index, item.title, item.description)" v-if="item.title !== 'Title' && item.description !=='Description'">
+                  <div class="conditionalForm">
+                    <input type="text" v-model="item.title" class="titleInput">
+                    <textarea rows="2" cols="70" v-model="item.description"></textarea>
                   </div>
-                  <div v-else class="theForm">
-                    <div class="conditionalForm">
-                      <input type="text" v-model="item.title" class="titleInput"  placeholder="add title here">
-                      <textarea rows="2" cols="70" v-model="item.description" placeholder="add description here"></textarea>
-                    </div>
-                    <button class="theButton" style="font-size: 1.1em; margin: 20px;">Submit</button>
+                  <button class="theButton" style="font-size: 1.1em; margin: 20px;">Submit</button>
+                </form>
+                <form v-show="item.editable" @submit.prevent="$emit('edit2',index, title, description)" v-else>
+                  <div class="conditionalForm">
+                    <input type="text" v-model="title" class="titleInput" placeholder="Add Title Here">
+                    <textarea rows="2" cols="70" v-model="description" placeholder="Add Description Here"></textarea>
                   </div>
+                  <button class="theButton" style="font-size: 1.1em; margin: 20px;">Submit</button>
                 </form>
               </div>
             </li>
@@ -163,7 +161,7 @@
     margin: 0px auto;
   }
 
-  .theForm {
+  form {
     display: flex;
     width: 700px;
     margin: 0px auto;

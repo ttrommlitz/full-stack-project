@@ -5,11 +5,16 @@
         <li v-for="item in this.completedItems" :key="item" class="theItem theli">
             <div>
                 <h3>{{ item.title }}</h3>
-                <p>{{ item.description }}</p>
-                <p>Day Completed: {{ item.time }}</p>
+                <p>{{ item.description }}<br><br></p>
+                <p class="date">Day Completed: {{ item.time }}</p>
             </div>
         </li>
     </ul>
+    <div class="noItemsP">
+        <p v-if="completedItems.length === 0">
+          Nothing completed. Go work on some tasks!
+        </p>
+    </div>
   </div>
 </template>
 
@@ -22,5 +27,8 @@ export default {
 <style>
     .theItem {
         justify-content: center;
+    }
+    .date {
+        font-size: .9em;
     }
 </style>

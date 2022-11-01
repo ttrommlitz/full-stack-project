@@ -6,7 +6,7 @@
     <router-link to="/completed">Completed</router-link>
   </nav>
   <router-view v-bind:msg="msg" v-bind:toDoList="toDoList" v-bind:completedItems="completedItems" 
-  @newItem="newItem" @deleteItem ="deleteItem" @checked="checked" @edit="edit" @changeEditable="changeEditable"/>
+  @newItem="newItem" @deleteItem ="deleteItem" @checked="checked" @edit1="edit1" @edit2="edit2" @changeEditable="changeEditable"/>
   </div>
 </template>
 
@@ -55,23 +55,29 @@
         const currentMonth = currentDate.getMonth(); 
         const currentYear = currentDate.getFullYear();
         this.toDoList[index].time = (currentMonth + 1) + "-" + currentDayOfMonth + "-" + currentYear;
+        await this.updateItems(index)
+      },
+      async edit1 (index) {
+        this.changeEditable(index)
+        await this.updateItems(index)
+      },
+      async edit2 (index, title, description) {
+        console.log('eidt2')
+        this.changeEditable(index)
+        this.toDoList[index].title = title
+        this.toDoList[index].description = description
+        await this.updateItems(index)
+      },
+      changeEditable (index) {
+        this.toDoList[index].editable = !this.toDoList[index].editable
+      },
+      async updateItems (index) {
         try {
           await axios.put(`${baseUrl}/api/update/` + this.toDoList[index]._id, this.toDoList[index])
           await this.fetchList()
         } catch (error) {
           console.error(error)
         }
-      },
-      async edit (index) {
-        this.changeEditable(index)
-        try {
-          await axios.put(`${baseUrl}/api/update/` + this.toDoList[index]._id, this.toDoList[index])
-        } catch (error) {
-          console.error(error)
-        }
-      },
-      changeEditable (index) {
-        this.toDoList[index].editable = !this.toDoList[index].editable
       },
       async fetchList () {
         try {
