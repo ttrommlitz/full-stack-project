@@ -7,7 +7,11 @@ services:
       dockerfile: Dockerfile
     image: todo-server
     container_name: todo-node-server
-    command: /usr/src/app/node_modules/.bin/nodemon server.js
+    command: 
+      - /bin/sh
+      - usr/src/app
+      - |
+        npm start
     volumes:
       - ./server/:/usr/src/app
       - /usr/src/app/node_modules
