@@ -7,11 +7,7 @@ services:
       dockerfile: Dockerfile
     image: todo-server
     container_name: todo-node-server
-    command: 
-      - /bin/sh
-      - usr/src/app
-      - |
-        npm start
+    command: npm run start
     volumes:
       - ./server/:/usr/src/app
       - /usr/src/app/node_modules
