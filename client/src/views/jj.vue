@@ -48,12 +48,22 @@
       </div>
     </div>
   </template>
-  
+
   <script>
 
   export default {
     name: 'theJj',
     props: ['msg','toDoList'],
+    data() {
+      return {
+        title: '',
+        description: '',
+      }
+    },
+    updated () {
+      this.title = ''
+      this.description = ''    
+    }
   }
   </script> 
   
@@ -171,19 +181,60 @@
     border: 1.5px solid black;
     border-radius: 7px;
     font-family: Avenir, Arial, Helvetica, sans-serif;
-    resize: none
+    resize: none;
   }
 
-  .list-move,
+  /* .list-move,
   .list-enter-active,
   .list-leave-active {
-    transition: all 0.5s ease
+    transition: all 0.5s ease;
+    transition: height s ease-out; 
   }
 
   .list-enter-from,
   .list-leave-to {
+    /* opacity: 0; */
+    /* height: 0; */
+  /* } */
+
+.list-enter-from, .list-leave-to {
   opacity: 0;
+}
+
+.list-move {
+  transition: transform .5s;
+}
+
+.list-enter-active {
+  transition: opacity 0.5s;
+  animation: list-in 0.5s ease-out forwards;
+}
+
+.list-leave-active {
+  position: absolute;
+  width: 100%;
+  animation: list-out 0.5s ease-out forwards;
+  transition: opacity 0.5s;
+  opacity: 0;
+}
+
+@keyframes list-in {
+  from {
+    transform: translateY(-20px);
   }
+  to {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes list-out {
+  from {
+    transform: translateX(0px);
+  }
+  to {
+    transform: translateX(350px);
+  }
+}
 
 input[type=checkbox] {
  accent-color: rebeccapurple;
@@ -192,6 +243,27 @@ input[type=checkbox] {
 @media only screen and (max-width: 800px) {
   .theli {
     width: 300px;
+  }
+
+  form {
+    display: block;
+    width: 100%;
+  }
+
+  p {
+    max-width: 200px;
+    word-wrap: break-word;
+  }
+
+  .conditionalForm {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  textarea {
+    width: 375px
   }
 }
   </style>

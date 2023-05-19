@@ -19,4 +19,4 @@ RUN npm run build
 # Exports
 EXPOSE 8080
 
-CMD ["npm","serve"]
+CMD ["npm","run","serve"]

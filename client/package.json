@@ -2,7 +2,7 @@
   "name": "full-stack-project",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://127.0.0.1:3001",
+  "proxy": "http://full-LoadB-13V2JDPTSMTFB-63353af261e3a4e6.elb.us-west-2.amazonaws.com:3001",
   "description": "## Project setup ``` npm install ```",
   "author": "",
   "scripts": {

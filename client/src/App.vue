@@ -5,7 +5,7 @@
     <!-- <router-link to="/create">Completed</router-link> |  -->
     <router-link to="/completed">Completed</router-link>
   </nav>
-  <router-view v-bind:msg="msg" v-bind:toDoList="toDoList" v-bind:completedItems="completedItems" 
+  <router-view v-bind:msg="msg" v-bind:toDoList="toDoList" v-bind:completedItems="completedItems"
   @newItem="newItem" @deleteItem ="deleteItem" @checked="checked" @edit1="edit1" @edit2="edit2" @changeEditable="changeEditable"/>
   </div>
 </template>
@@ -17,7 +17,9 @@
     data () {
       return {
         msg: 'To Do List',
-        toDoList: []
+        toDoList: [],
+        title: '',
+        description: ''
       }
     },
     async created () {
@@ -62,7 +64,6 @@
         await this.updateItems(index)
       },
       async edit2 (index, title, description) {
-        console.log('eidt2')
         this.changeEditable(index)
         this.toDoList[index].title = title
         this.toDoList[index].description = description

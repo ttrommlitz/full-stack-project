@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     image: todo-server
     container_name: todo-node-server
-    command: npm run start:dev
+    command: npm run start
     volumes:
       - ./server/:/usr/src/app
       - /usr/src/app/node_modules
@@ -40,6 +40,8 @@ services:
       - /usr/app/node_modules
     depends_on:
       - server
+    environment:
+      - SERVERPORT=http://127.0.0.1:3001
     ports:
       - "8080:8080"
     networks:
